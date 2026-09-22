@@ -16,6 +16,8 @@ CREATE TABLE products (
     product_name VARCHAR(100)
 ); 
 
+DROP TABLE IF EXISTS orders;
+
 CREATE TABLE orders (
     order_id VARCHAR(20) PRIMARY KEY,
     customer_id VARCHAR(20),
@@ -34,6 +36,5 @@ SELECT * FROM customers;
 SELECT * FROM products;
 SELECT * FROM orders;
 
-DROP TABLE customers; 
 
-ddd
+
