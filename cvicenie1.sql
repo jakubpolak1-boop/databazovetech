@@ -39,15 +39,26 @@ SELECT * FROM orders;
 
 ----------------------------------------------------------------------------------------------------------------------------------------
 SELECT 
-    orders.order_id, 
-    customers.customer_name, 
-    orders.sales
+    o.order_id, 
+    c.customer_name, 
+    o.sales
 FROM 
-    orders
+    orders AS o
 JOIN 
-    customers ON orders.customer_id = customers.customer_id
+    customers AS c ON o.customer_id = c.customer_id
 WHERE 
-    orders.sales > 500
+    o.sales > 500
 ORDER BY 
-    orders.sales DESC; 
+    o.sales DESC;
 -----------------------------------------------------------------------------------------------
+SELECT 
+    o.order_id, 
+    c.customer_name, 
+    p.category, 
+    o.sales
+FROM 
+    orders AS o
+JOIN 
+    customers AS c ON o.customer_id = c.customer_id
+JOIN 
+    products AS p ON o.product_id = p.product_id;
