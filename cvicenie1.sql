@@ -118,4 +118,59 @@ LEFT JOIN
      orders as O ON c.customer_id = o.customer_id
 GROUP BY
     c.customer_name;
-    
+
+-----------------------------------------------
+
+SELECT 
+    p.category, 
+    AVG(o.discount) AS priemerka
+FROM 
+    products AS p
+JOIN
+    orders AS o ON p.product_id = o.product_id
+GROUP BY 
+    p.category;
+
+-----------------------------
+
+SELECT 
+    c.customer_name, 
+    SUM(o.sales) AS celkovo
+FROM 
+    customers AS c
+JOIN 
+    orders AS o ON c.customer_id = o.customer_id
+GROUP BY 
+    c.customer_name
+HAVING 
+    SUM(o.sales) > 2000;
+
+------------------------------
+
+SELECT 
+    c.region, 
+    SUM(o.sales) AS predaje,
+    AVG(o.discount) AS priemernaZ,
+    COUNT(o.order_id) AS Objednavky
+FROM 
+    customers AS c
+JOIN 
+    orders AS o ON c.customer_id = o.customer_id
+GROUP BY 
+    c.region;
+
+----------------------------------------------------
+
+SELECT 
+    c.region,
+    COUNT(CASE WHEN o.sales > 1000 THEN 1 END) AS pocet_H,
+    COUNT(CASE WHEN o.sales <= 1000 THEN 1 END) AS pocetL
+FROM 
+    customers AS c
+JOIN 
+    orders AS o ON c.customer_id = o.customer_id
+GROUP BY 
+    c.region;
+
+--------------------------------------------------------------
+
