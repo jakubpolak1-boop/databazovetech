@@ -73,3 +73,28 @@ JOIN
     orders AS o ON c.customer_id = o.customer_id
 GROUP BY 
     c.region;  
+    -------------------------------------------------------------------------------ň
+
+SELECT 
+    p.product_name as PRODUKTY, 
+    SUM(o.sales) AS celkova_hodnota_predaja
+FROM 
+    products AS p
+LEFT JOIN 
+    orders AS o ON p.product_id = o.product_id
+GROUP BY 
+    p.product_name;
+
+------------------------------------------------------------------------    
+
+SELECT 
+    c.customer_name AS zakaznik, 
+    o.order_id AS idečko_objednavky, 
+    o.sales AS hodnota
+FROM 
+    customers AS c
+FULL OUTER JOIN 
+    orders AS o ON c.customer_id = o.customer_id;
+
+--------      
+
