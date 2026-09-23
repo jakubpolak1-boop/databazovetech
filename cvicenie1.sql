@@ -62,3 +62,14 @@ JOIN
     customers AS c ON o.customer_id = c.customer_id
 JOIN 
     products AS p ON o.product_id = p.product_id;
+    -------------------------------------
+
+  SELECT 
+    c.region, 
+    SUM(o.sales) AS celkova_hodnota_predaja
+FROM 
+    customers AS c
+JOIN 
+    orders AS o ON c.customer_id = o.customer_id
+GROUP BY 
+    c.region;  
