@@ -98,3 +98,15 @@ FULL OUTER JOIN
 
 --------      
 
+SELECT 
+    c.region, 
+    SUM(o.sales) AS hodnota
+FROM 
+    customers AS c
+JOIN 
+    orders AS o ON c.customer_id = o.customer_id
+GROUP BY 
+    c.region;
+
+    ----------  
+
