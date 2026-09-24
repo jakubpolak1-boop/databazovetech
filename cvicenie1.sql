@@ -162,15 +162,22 @@ GROUP BY
 ----------------------------------------------------
 
 SELECT 
-    c.region,
-    COUNT(CASE WHEN o.sales > 1000 THEN 1 END) AS pocet_H,
-    COUNT(CASE WHEN o.sales <= 1000 THEN 1 END) AS pocetL
+    c.customer_name,
+    SUM(o.sales) AS celkovyP,
+    AVG(o.discount) AS priemernaZ,
+    COUNT(o.order_id) AS pocet,
+    CASE 
+        WHEN SUM(o.sales) > 2500 THEN 'VIP'
+        ELSE 'REGULAR'
+    END AS typZ
 FROM 
     customers AS c
-JOIN 
+LEFT JOIN 
     orders AS o ON c.customer_id = o.customer_id
 GROUP BY 
-    c.region;
+    c.customer_name
+ORDER BY 
+    celkovyP DESC;
 
 --------------------------------------------------------------
 
