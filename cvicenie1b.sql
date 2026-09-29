@@ -23,4 +23,5 @@ CREATE TABLE flourmills_sales (
     total_amount DECIMAL(10, 2)
 );
 
-SELECT * FROM flourmills_sales;
+SELECT *
+FROM flourmills_sales
