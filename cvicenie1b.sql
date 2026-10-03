@@ -93,3 +93,83 @@ ORDER BY
     monthly_sales DESC;
 
 -------------------------------------------
+
+SELECT 
+    product_category,
+    total_sales
+FROM (
+    SELECT 
+        product_category,
+        SUM(total_amount) AS total_sales
+    FROM 
+        flourmills_sales
+    GROUP BY 
+        product_category
+) AS sumarkategorie
+WHERE 
+    total_sales > 50000000
+ORDER BY 
+    total_sales DESC; 
+
+------------------------------------------
+SELECT 
+    product_name,
+    product_category,
+    total_amount
+FROM 
+    flourmills_sales t1
+WHERE 
+    total_amount > (
+        SELECT AVG(total_amount) 
+        FROM flourmills_sales t2 
+        WHERE t2.product_category = t1.product_category
+    );
+
+
+-----------------------------------
+SELECT 
+    product_name,
+    region,
+    total_amount,
+    (SELECT MIN(total_amount) 
+     FROM flourmills_sales t2 
+     WHERE t2.region = t1.region) AS region_min_amount
+FROM 
+    flourmills_sales t1
+
+
+-----------------------------
+SELECT *
+FROM flourmills_sales t1
+WHERE EXISTS (
+    SELECT 1
+    FROM flourmills_sales t2
+    WHERE t2.product_name = t1.product_name
+    GROUP BY t2.product_name
+    HAVING COUNT(DISTINCT EXTRACT(MONTH FROM t2.sale_date)) > 1
+);
+
+-------------------------------
+SELECT *
+FROM flourmills_sales t1
+WHERE EXISTS (
+    SELECT 1 
+    FROM flourmills_sales t2 
+    WHERE t2.product_category = t1.product_category 
+      AND t2.total_amount > 200000
+);
+
+------------------------------
+
+SELECT DISTINCT product_category
+FROM flourmills_sales t1
+WHERE EXISTS (
+    SELECT 1
+    FROM flourmills_sales t2
+    WHERE t2.product_category = t1.product_category
+    GROUP BY t2.product_category
+    HAVING COUNT(DISTINCT t2.region) > 3
+);
+
+---------------------------------
+
