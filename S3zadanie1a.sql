@@ -1,4 +1,4 @@
--- Active: 1790056543991@@127.0.0.1@5432@superstore
+-- Active: 1790056543991@@127.0.0.1@5432@datacraftinglab_dbeseses
 SELECT *
 from superstore
 
@@ -55,4 +55,50 @@ SELECT *
 FROM analyst_orders;
 
 -------------------------------------------------------
+
+CREATE index idx_orders_customer_id
+ON orders (customer_id);
+
+
+SELECT *
+FROM orders
+WHERE customer_id = 'C001'; 
+
+--------------------------------------------------------
+
+CREATE INDEX idx_orders_order_date
+ON orders(order_date);
+
+SELECT DATE_TRUNC('month', order_date) AS month,
+       SUM(sales) AS sum
+FROM orders
+GROUP BY DATE_TRUNC('month', order_date)
+ORDER BY month ASC;
+
+
+---------------------------------------------------------
+CREATE INDEX idx_orders_region_category
+ON orders(customer_id, order_date);
+
+SELECT o.*,
+       c.customer_name,
+       c.region
+FROM orders o
+JOIN customers c ON o.customer_id = c.customer_id
+WHERE c.region = 'West'
+  AND o.order_date >= '2024-01-01';
+
+--------------------------------------------------------------
+
+EXPLAIN ANALYZE
+SELECT *
+FROM orders
+WHERE customer_id = 'C001';
+
+
+-------------------------------------------------------------
+
+
+
+
 
