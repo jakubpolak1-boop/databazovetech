@@ -1,0 +1,9 @@
+,pocet_chyb
+invalid_orderid_format,0
+duplicate_orderid,22
+invalid_quantity,24
+invalid_salesamount,22
+invalid_discount,29
+invalid_dates,24
+logical_date_error,15
+invalid_phone,34
